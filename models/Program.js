@@ -1,9 +1,10 @@
-const{Schema,model}=require('mongoose');
+const mongoose = require('mongoose');
+
 const programSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    createdAt: { type: Date, default: Date.now }
-  });
+    location: { type: String, required: true },
+    activities: [{ type: String }],
+    description: { type: String },
+});
 
-const ProgramModel=model('program',ProgramSchema);
-module.exports=ProgramModel;
+module.exports = mongoose.model('Program', programSchema);
