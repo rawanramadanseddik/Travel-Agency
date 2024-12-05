@@ -17,6 +17,7 @@ app.use(express.json()); // Parse JSON requests
 // Routes
 app.use('/users', usersRouter); // User routes
 app.use('/api/locations', locationRoutes); // Location routes
+app.use('/api/trips', tripRoutes); // Trip routes
 app.use('/api/customizableTrips', customizableTripRouter);
 
 // Start server and initialize DB
