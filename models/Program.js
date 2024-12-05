@@ -1,8 +1,9 @@
 const{Schema,model}=require('mongoose');
 const programSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    createdAt: { type: Date, default: Date.now }
+    name: { type: String, required: true , unique: true},
+    description: { type: String, required: false },
+    activites: { type: String, required: true },
+    location: { type: String, required: true },
   });
 
 const ProgramModel=model('program',ProgramSchema);
