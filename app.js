@@ -15,6 +15,8 @@ dotenv.config({
 const app = express();
 const PORT = process.env.PORT || 5000; // Default to port 5000 if not defined
 
+const customizableTripRouter = require('./routes/customizableTripRoutes');
+
 // Middleware
 app.use(express.json()); // Parse JSON requests
 
@@ -23,6 +25,9 @@ app.use('/users', usersRouter); // User routes
 app.use('/api/locations', locationRoutes); // Location routes
 app.use('/api/trips', tripRoutes); // Trip routes
 
+app.use('/api/customizableTrips', customizableTripRouter);
+
+
 // MongoDB connection
 mongoose.connect(process.env.MONGO_CONNECTION_URI, {
     useNewUrlParser: true,
@@ -30,6 +35,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_URI, {
 })
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.log('Database connection error:', err));
+
 
 // Start server
 app.listen(PORT, async () => {
