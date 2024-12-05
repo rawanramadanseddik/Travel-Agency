@@ -9,14 +9,15 @@ dotenv.config({
 });
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Default to port 3000 if not defined
-
+const PORT = process.env.PORT || 5000; // Default to port 5000 if not defined
+const customizableTripRouter = require('./routes/customizableTripRoutes');
 // Middleware
 app.use(express.json()); // Parse JSON requests
 
 // Routes
 app.use('/users', usersRouter); // User routes
 app.use('/api/locations', locationRoutes); // Location routes
+app.use('/api/customizableTrips', customizableTripRouter);
 
 // Start server and initialize DB
 app.listen(PORT, async () => {
