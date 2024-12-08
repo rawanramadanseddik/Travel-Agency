@@ -80,29 +80,37 @@ const deleteTrip = async (req, res) => {
 
 const getTripsByLocationAndProgram = async (req, res) => {
     try {
-        const { location, program } = req.params;
+        const { locationName, programName } = req.params;
 
-        // Ensure we find the program by location and name
-        const programDetails = await Program.findOne({ location, name: program });
-        if (!programDetails) {
-            return res.status(404).json({ message: 'Program not found in the specified location' });
+        // Validate the input
+        if (!locationName || !programName) {
+            return res.status(400).json({ message: "Missing location or program name" });
         }
 
-        // Find the trips for the program
-        const trips = await Trip.find({ programId: programDetails._id })
-            .populate('programId')
-            .populate('accommodationId')  // Ensure these fields are populated correctly
-            .populate('transportationId');
+        const program = await Program.findOne({
+            name: programName,
+            location: locationName,
+        });
 
-        if (!trips.length) {
-            return res.status(404).json({ message: 'No trips found for the specified program and location' });
+        if (!program) {
+            return res.status(404).json({ message: "No program found for the specified location and name" });
         }
 
-        res.status(200).json(trips);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching trips by location and program', error: error.message });
+        const trips = await Trip.find({
+            programId: program._id,
+            location: locationName,
+        });
+
+        if (trips.length === 0) {
+            return res.status(404).json({ message: "No trips found for the specified program and location" });
+        }
+
+        res.json(trips);
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching trips", error: err.message });
     }
 };
+
 
 
 module.exports = {

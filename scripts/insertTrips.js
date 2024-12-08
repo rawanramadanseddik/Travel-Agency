@@ -36,7 +36,17 @@ const trips = [
     },
     {
         name: 'Sharm El Sheikh Getaway',
-        programId: null,
+        programId: "67509860b28bc4983cc29209",
+        accommodationId: null,
+        transportationId: null,
+        price: 400,
+        date: '2024-12-22',
+    },
+
+
+    {
+        name: 'dahab Getaway',
+        programId: "67509860b28bc4983cc29209",
         accommodationId: null,
         transportationId: null,
         price: 400,

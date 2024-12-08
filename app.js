@@ -6,6 +6,12 @@ const singleServicesRoutes = require('./routes/singleServicesRoutes'); // Import
 const initiateDBConnection = require('./config/db'); // Database connection
 const publicTransportationRoutes = require('./routes/publicTransportationRoutes');
 const { getWeather } = require('./services/weatherService');
+const programRoutes = require('./routes/programRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const tripRoutes = require('./routes/tripRoutes'); // Trip routes
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 
 dotenv.config({
     path: './config/.env',
@@ -32,9 +38,20 @@ app.use('/users', usersRouter); // User routes
 app.use('/api/locations', locationRoutes); // Location routes
 app.use('/api/singleservices', singleServicesRoutes);
 app.use('/api/publictransportation', publicTransportationRoutes);
+app.use('/api/trips', tripRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/programs', programRoutes);
 
-// Start server and initialize DB
+// MongoDB connection
+mongoose.connect(process.env.MONGO_CONNECTION_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.log('Database connection error:', err));
+
+// Start server
 app.listen(PORT, async () => {
-    console.log(`Server has been started and is listening on port ${PORT}`);
-    await initiateDBConnection();
+    console.log(Server has been started and is listening on port ${PORT});
 });
+module.exports = app;
