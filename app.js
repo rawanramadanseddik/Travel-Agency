@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const accommodationRoutes = require('./routes/accommodationRoutes');
+const transportationRoutes = require('./routes/transportationRoutes');
 const locationRoutes = require('./routes/locationRoutes'); // Location routes
 const usersRouter = require('./routes/usersRoutes'); // User routes
 const singleServicesRoutes = require('./routes/singleServicesRoutes'); // Import single services routes
@@ -9,6 +11,7 @@ const { getWeather } = require('./services/weatherService');
 const programRoutes = require('./routes/programRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const tripRoutes = require('./routes/tripRoutes'); // Trip routes
+const customizableProgramRoutes = require('./routes/customizableProgramRoutes');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -41,6 +44,11 @@ app.use('/api/publictransportation', publicTransportationRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/programs', programRoutes);
+app.use('/api/accommodations', accommodationRoutes);
+app.use('/api/customizable-programs', customizableProgramRoutes);
+app.use('/api/transportations', transportationRoutes);
+//app.use('/api/customizableProgram', customizableProgramRoutes);
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_CONNECTION_URI, {
@@ -52,6 +60,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_URI, {
 
 // Start server
 app.listen(PORT, async () => {
-    console.log(Server has been started and is listening on port ${PORT});
+    console.log(`Server has been started and is listening on port ${PORT}`);
+
 });
 module.exports = app;
