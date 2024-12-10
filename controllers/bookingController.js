@@ -1,7 +1,7 @@
 const Booking = require('../models/Booking');
 
 // Controller to handle booking creation
-exports.createBooking = async (req, res) => {
+const createBooking = async (req, res) => {
     try {
         const { name, email, noOfPeople, date } = req.body;
 
@@ -28,4 +28,34 @@ exports.createBooking = async (req, res) => {
             error: error.message,
         });
     }
+};
+
+// Controller to get bookings by user ID
+const getAllBookingsByUserId = async (req, res) => {
+    const { userId } = req.params; // Extract userId from the route parameter
+
+    try {
+        const bookings = await Booking.find({ userId }); // Query all bookings for the user
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Controller to get bookings by user name
+const getAllBookingsByName = async (req, res) => {
+    const { name } = req.params; // Extract name from the route parameter
+
+    try {
+        const bookings = await Booking.find({ name: { $regex: new RegExp(name, 'i') } }); // Case-insensitive name match
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = {
+    createBooking,
+    getAllBookingsByUserId,
+    getAllBookingsByName,
 };

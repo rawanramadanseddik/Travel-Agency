@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const accommodationRoutes = require('./routes/accommodationRoutes');
 const transportationRoutes = require('./routes/transportationRoutes');
 const locationRoutes = require('./routes/locationRoutes'); // Location routes
@@ -12,6 +13,7 @@ const programRoutes = require('./routes/programRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const tripRoutes = require('./routes/tripRoutes'); // Trip routes
 const customizableProgramRoutes = require('./routes/customizableProgramRoutes');
+const extraFacilityRoutes = require('./routes/extraFacilityRoutes'); // Lowercase "routes"
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -32,7 +34,13 @@ app.use(cors({
 }));
 
 // Middleware
+const corsOptions = {
+  origin: 'http://localhost:3000', // Allow only the React app
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+};
 app.use(express.json()); // Parse JSON requests
+app.use(cors(corsOptions)); // Define CORS policy
 
 app.get('/weather/:city', async (req, res) => {
     const city = req.params.city;
@@ -53,6 +61,7 @@ app.use('/api/trips', tripRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/programs', programRoutes);
 app.use('/api/accommodations', accommodationRoutes);
+app.use('/api/programs', extraFacilityRoutes);
 app.use('/api/customizable-programs', customizableProgramRoutes);
 app.use('/api/transportations', transportationRoutes);
 //app.use('/api/customizableProgram', customizableProgramRoutes);
