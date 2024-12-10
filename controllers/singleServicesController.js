@@ -147,7 +147,9 @@ exports.searchCarRentals = async (req, res) => {
 
 // Search Stays
 exports.searchStays = async (req, res) => {
+    console.log(req.body);
     const { location, type, fromDate, toDate, adults, children } = req.body;
+
     try {
         const stays = await Stay.find({
             location,
@@ -157,11 +159,13 @@ exports.searchStays = async (req, res) => {
             maxAdults: { $gte: adults },
             maxChildren: { $gte: children },
         });
-        res.json(stays);
+        res.json(stays); // Return the stays found in the database
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error searching stays', error: error.message });
     }
 };
+
 
 
 // Insert Single or Multiple Stays
@@ -316,7 +320,6 @@ exports.searchAttractions = async (req, res) => {
         res.status(500).json({ message: 'Error searching attractions', error: error.message });
     }
 };
-
 // Insert a new airport transport booking
 module.exports.insertAirportTransport = async (req, res) => {
     const data = req.body; // Accepts either an array of records or a single record
@@ -384,12 +387,19 @@ exports.deleteAirportTransport = async (req, res) => {
 
 // Search for available airport transport services
 module.exports.searchAirportTransports = async (req, res) => {
-    const { location, serviceType } = req.body;
+    const { location, serviceType, destination, numberOfPeople } = req.body;
 
     try {
-        const transports = await AirportTransport.find({ location, serviceType });
+        const transports = await AirportTransport.find({
+            location,
+            serviceType,
+            destination,
+            numberOfPeople,
+        });
         res.json(transports);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
+
+

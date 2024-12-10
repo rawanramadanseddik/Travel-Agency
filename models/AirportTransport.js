@@ -5,10 +5,8 @@ const airportTransportSchema = new mongoose.Schema({
     serviceType: { type: String, required: true }, // taxi, shuttle, private car
     price: { type: Number, required: true },
     location: { type: String, required: true }, // Airport or specific location
-    pickupTime: { type: Date, required: true },
-    customerName: { type: String, required: true },
-    customerEmail: { type: String, required: true },
-    flightInfo: { type: String, required: true } // Flight number or additional details
+    destination: { type: String, required: true }, // added destination
+    numberOfPeople: { type: Number, required: true }, // added number of people
 });
 
 module.exports = mongoose.model('AirportTransport', airportTransportSchema);

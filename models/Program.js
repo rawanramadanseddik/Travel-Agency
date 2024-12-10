@@ -9,4 +9,7 @@ const programSchema = new mongoose.Schema({
   });
 
 
-module.exports = mongoose.model('Program', programSchema);
+//module.exports = mongoose.model('Program', programSchema);
+const Program = mongoose.model('Program', programSchema);
+
+module.exports = Program;
