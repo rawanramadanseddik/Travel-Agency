@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 // Your API key and base URL
-const apiKey = 'e4e02f0fe12c464b9ff04335240712'; // Replace with your API key
+const apiKey = 'e4e02f0fe12c464b9ff04335240712'; 
 const baseUrl = 'http://api.weatherapi.com/v1/current.json'; // For current weather data
 
 // Function to fetch weather data

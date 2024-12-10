@@ -48,7 +48,7 @@ app.get('/weather/:city', async (req, res) => {
 app.use('/users', usersRouter); // User routes
 app.use('/api/locations', locationRoutes); // Location routes
 app.use('/api/singleservices', singleServicesRoutes);
-app.use('/api/publictransportation', publicTransportationRoutes);
+app.use('/api/public-transportation', publicTransportationRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/programs', programRoutes);
