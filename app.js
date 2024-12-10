@@ -13,6 +13,14 @@ dotenv.config({
 
 const app = express();
 const PORT = process.env.PORT || 5000; // Default to port 3000 if not defined
+const cors = require('cors');
+
+// Allow requests from the frontend's domain (replace 'http://localhost:3000' with your actual frontend URL)
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE', // Allow necessary HTTP methods
+    credentials: true
+}));
 
 // Middleware
 app.use(express.json()); // Parse JSON requests
